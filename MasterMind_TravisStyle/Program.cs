@@ -27,6 +27,7 @@ namespace MasterMind_TravisStyle
             Console.WriteLine("The current hints are as follows: 'Number:-' means the number exists but is not in the right position");
             Console.WriteLine("The current hints are as follows: 'Number:+' means the number is in the correct position and correct number");
             Console.WriteLine("The Number has been generated XXXX, each digit is between 1 and 6.  Please guess appropriately");
+            ProcessGameLogic(ref model, ref guesses);
         }
 
         /// <summary>
@@ -71,6 +72,7 @@ namespace MasterMind_TravisStyle
                             else if (restartOrQuit.Equals("r", StringComparison.InvariantCultureIgnoreCase))
                             {
                                 ResetGameLogic(ref model, ref guesses);
+                                break;
                             }
                         }
                     }
@@ -132,18 +134,22 @@ namespace MasterMind_TravisStyle
                             }
                             else
                             {
-                                guesses.hintGuessModels.Add(new HintGuessModel() { HintGuess = "", NumberGuess = integerGuessCharacter });
+                                //guesses.hintGuessModels.Add(new HintGuessModel() { HintGuess = " ", NumberGuess = integerGuessCharacter });
                             }
                             ++position;
                         }
-                        guesses.hintGuessModels.OrderByDescending(x => x.HintGuess).ToList();
-                        foreach (var hintGuess in guesses.hintGuessModels)
+                        var positiveGuesses = guesses.hintGuessModels.Where(x => x.HintGuess == "+").ToList();
+                        var negativeGuesses = guesses.hintGuessModels.Where(x => x.HintGuess == "-").ToList();
+                        foreach (var hintGuess in positiveGuesses)
+                        {
+                            Console.WriteLine($"{hintGuess.NumberGuess}:{hintGuess.HintGuess}");
+                        }
+                        foreach (var hintGuess in negativeGuesses)
                         {
                             Console.WriteLine($"{hintGuess.NumberGuess}:{hintGuess.HintGuess}");
                         }
                         guesses.hintGuessModels = new List<HintGuessModel>();
                     }
-
                     guesses.IncrementGuesses();
                     string totalGuessesLeft = (guesses.MaxGuesses - guesses.NumberOfGuesses).ToString();
                     Console.WriteLine($"Number of guesses left: {totalGuessesLeft}");
@@ -164,7 +170,6 @@ namespace MasterMind_TravisStyle
                     else if (restartOrQuit.Equals("r", StringComparison.InvariantCultureIgnoreCase))
                     {
                         ResetGameLogic(ref model, ref guesses);
-                        ProcessGameLogic(ref model, ref guesses);
                     }
                 }
             }
