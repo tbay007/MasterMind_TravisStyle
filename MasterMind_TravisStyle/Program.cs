@@ -38,21 +38,81 @@ namespace MasterMind_TravisStyle
                         string? restartOrQuit = Console.ReadLine();
                         if (!string.IsNullOrEmpty(restartOrQuit))
                         {
-                            if (restartOrQuit.Equals("q"))
+                            if (restartOrQuit.Equals("q", StringComparison.InvariantCultureIgnoreCase))
                             {
                                 break;
                             }
-                            else if (restartOrQuit.Equals("r"))
+                            else if (restartOrQuit.Equals("r", StringComparison.InvariantCultureIgnoreCase))
                             {
                                 //restart logic
                                 model = new MasterMindModel();
                                 guesses = new GuessModel();
-                            }
-                            else
-                            {
-
+                                Console.Clear();
+                                Console.WriteLine("Welcome to MasterMind!  This game is with Travis's style so be prepared to guess!");
+                                Console.WriteLine("The Number has been generated XXXX, each digit is between 1 and 6.  Please guess appropriately");
                             }
                         }
+                    }
+                    else
+                    {
+                        char[] individualGuessCharacters = lineRead.ToArray();
+                        char[] charsForHints = new char[individualGuessCharacters.Length];
+                        int position = 0;
+                        foreach (char guessCharacter in individualGuessCharacters)
+                        {
+                            bool doesGuessCharacterExistInAnswer = model.FullNumber.Contains(guessCharacter);
+                            if (doesGuessCharacterExistInAnswer)
+                            {
+                                int integerGuessCharacter = Convert.ToInt32(guessCharacter.ToString());
+                                if (position == 0)
+                                {
+                                    if (integerGuessCharacter == model.Number1)
+                                    {
+                                        charsForHints[position] = '+';
+                                    }
+                                    else
+                                    {
+                                        charsForHints[position] = '-';
+                                    }
+                                }
+                                else if (position == 1)
+                                {
+                                    if (integerGuessCharacter == model.Number2)
+                                    {
+                                        charsForHints[position] = '+';
+                                    }
+                                    else
+                                    {
+                                        charsForHints[position] = '-';
+                                    }
+                                }
+                                else if (position == 2)
+                                {
+                                    if (integerGuessCharacter == model.Number3)
+                                    {
+                                        charsForHints[position] = '+';
+                                    }
+                                    else
+                                    {
+                                        charsForHints[position] = '-';
+                                    }
+                                }
+                                else if (position == 3)
+                                {
+                                    if (integerGuessCharacter == model.Number4)
+                                    {
+                                        charsForHints[position] = '+';
+                                    }
+                                    else
+                                    {
+                                        charsForHints[position] = '-';
+                                    }
+                                }
+                            }
+                            ++position;
+                        }
+                        string hintResults = new string(charsForHints.OrderBy(x => x));
+                        Console.WriteLine($"{hintResults}");
                     }
 
 
@@ -62,8 +122,6 @@ namespace MasterMind_TravisStyle
                 }
             }
             while (guesses.MaxGuesses > guesses.NumberOfGuesses);
-
-            
         }
     }
 }
