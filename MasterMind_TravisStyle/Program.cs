@@ -51,11 +51,15 @@ namespace MasterMind_TravisStyle
                 {
                     Console.WriteLine("You did not type in a number.  Please type in a number");
                 }
-                else if (lineRead.Equals(string.Format("cheat", StringComparison.InvariantCultureIgnoreCase)))  //provides a cheat for debugging purposes
+                else if (lineRead.Length > 4)
+                {
+                    Console.WriteLine("Cannot be more than a 4 digit guess ex: 1234");
+                }
+                /*else if (lineRead.Equals(string.Format("cheat", StringComparison.InvariantCultureIgnoreCase)))  //provides a cheat for debugging purposes
                 {
                     //If you want to cheat, it is a simple term
                     Console.WriteLine($"The number is: {model.FullNumber}");
-                }
+                }*/
                 else
                 {
                     if (model.FullNumber.Equals(lineRead))
@@ -131,10 +135,6 @@ namespace MasterMind_TravisStyle
                                         guesses.hintGuessModels.Add(new HintGuessModel() { HintGuess = "-", NumberGuess = integerGuessCharacter });
                                     }
                                 }
-                            }
-                            else
-                            {
-                                //guesses.hintGuessModels.Add(new HintGuessModel() { HintGuess = " ", NumberGuess = integerGuessCharacter });
                             }
                             ++position;
                         }
