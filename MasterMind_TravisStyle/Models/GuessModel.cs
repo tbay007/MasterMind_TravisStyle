@@ -10,24 +10,23 @@ namespace MasterMind_TravisStyle.Models
     {
         public int NumberOfGuesses { get; set; }
         public int MaxGuesses { get; set; }
+        public List<HintGuessModel> hintGuessModels { get; set; }
         public GuessModel() 
         { 
             NumberOfGuesses = 0;
             MaxGuesses = 10;
+            hintGuessModels = new List<HintGuessModel>();
         }
 
         public void IncrementGuesses()
         {
             ++NumberOfGuesses;
         }
+    }
 
-        public int Number1Guess { get; set; }
-        public string Hint1Guess { get; set; }
-        public int Number2Guess { get; set; }
-        public string Hint2Guess { get; set; }
-        public int Number3Guess { get; set; }
-        public string Hint3Guess { get; set; }
-        public int Number4Guess { get; set; }
-        public string Hint4Guess { get; set; }
+    public class HintGuessModel
+    {
+        public int NumberGuess { get; set; }
+        public string HintGuess { get; set; } = string.Empty;
     }
 }

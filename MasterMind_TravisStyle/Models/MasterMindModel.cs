@@ -9,8 +9,8 @@ namespace MasterMind_TravisStyle.Models
     public class MasterMindModel
     {
         /// <summary>
-        /// Instantiates random number to the three long values.
-        /// The three long values will become a string and will be used for the game
+        /// Instantiates random number to the four long values.
+        /// The four long values will become a string and will be used for the game
         /// </summary>
         public MasterMindModel() 
         { 
